@@ -8,6 +8,7 @@ import {
   LAMPORTS_PER_SOL,
 } from "@solana/web3.js";
 import "./App.css";
+import { QRCodeSVG } from "qrcode.react";
 
 import { getSolanaPrice } from "./helper.js";
 import SolanaChart from "./components/SolanaChart";
@@ -206,6 +207,7 @@ function App() {
             )}
           </div>
 
+          {/* SOL Price Chart */}
           <div className="card price-card">
             <h2>SOL Price Chart</h2>
             <div className="chart-container">
@@ -216,6 +218,7 @@ function App() {
             </div>
           </div>
 
+          {/* Send SOL */}
           <div className="card action-card">
             <h2>Send SOL</h2>
             <form onSubmit={sendSOL}>
@@ -259,6 +262,32 @@ function App() {
               </button>
             </form>
           </div>
+
+          {/* QR Code */}
+          {walletAddress && (
+            <div className="card qr-card">
+              <h2>Receive SOL</h2>
+              <p className="subtitle">
+                Scan this code to send SOL to your wallet
+              </p>
+              <div className="qr-container">
+                <div className="qr-decor qr-decor-tl"></div>
+                <div className="qr-decor qr-decor-tr"></div>
+                <div className="qr-decor qr-decor-bl"></div>
+                <div className="qr-decor qr-decor-br"></div>
+                <QRCodeSVG value={walletAddress} size={200} />
+              </div>
+              <div
+                className="wallet-display"
+                onClick={() => {
+                  navigator.clipboard.writeText(walletAddress);
+                  alert("Wallet address copied to clipboard!");
+                }}
+              >
+                {walletAddress}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
