@@ -1,38 +1,547 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap");
+
+:root {
+  --primary: #6366f1;
+  --primary-light: #818cf8;
+  --primary-dark: #4f46e5;
+  --accent: #10b981;
+  --accent-2: #f43f5e;
+  --background: #0f1729;
+  --background-card: #1a2137;
+  --background-input: #131a2c;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border: #2e3957;
+  --success: #10b981;
+  --error: #ef4444;
+  --pending: #f59e0b;
+  --price-up: #10b981;
+  --price-down: #f43f5e;
+  --border-radius: 18px;
+  --border-radius-sm: 10px;
+  --box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
+  --card-glow: 0 0 80px -20px rgba(99, 102, 241, 0.15);
+  --transition: all 0.3s ease;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  background-color: var(--background);
+  background-image: radial-gradient(
+      circle at 25% 25%,
+      rgba(99, 102, 241, 0.05) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(16, 185, 129, 0.05) 0%,
+      transparent 40%
+    );
   min-height: 100vh;
+  margin: 0;
+  font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.app-container {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary-light) 0%,
+    var(--primary) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  position: relative;
+}
+
+.highlight {
+  color: var(--accent);
+  position: relative;
+}
+
+.highlight::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  top: 0;
+  right: -8px;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.connect-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background: var(--background-card);
+  border-radius: var(--border-radius);
+  padding: 2rem 2rem 2.5rem 2rem;
+  box-shadow: var(--box-shadow);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  width: 100%;
+  align-items: stretch;
+}
+
+.connect-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+.connect-subtitle {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--background-card);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--card-glow);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.balance-card {
+  text-align: center;
+}
+
+.card-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.balance-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.currency {
+  font-size: 1.25rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.wallet-address {
+  display: inline-block;
+  max-width: 100%;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  font-family: "Fira Code", monospace;
+  font-size: 0.8rem;
+  background: rgba(99, 102, 241, 0.1);
+  padding: 0.2em 0.5em;
+  border-radius: var(--border-radius-sm);
+  margin-top: 0.3em;
+}
+
+.action-card {
+  margin-top: 0.5rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+  position: relative;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem;
+  width: 2rem;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+input {
+  background: var(--background-input);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-sm);
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-family: "Space Grotesk", sans-serif;
+  transition: var(--transition);
+  width: 100%;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.amount-input-wrapper {
+  position: relative;
+}
+
+.input-suffix {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+button {
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--primary-dark) 100%
+  );
   color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: 0.85rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: "Space Grotesk", sans-serif;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.App-link {
-  color: #61dafb;
+button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    var(--primary-dark) 0%,
+    var(--primary) 100%
+  );
+  opacity: 0;
+  z-index: -1;
+  transition: var(--transition);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+button:hover::before {
+  opacity: 1;
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+button:disabled {
+  background: #566491;
+  cursor: not-allowed;
+}
+
+.connect-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.75rem;
+  margin-top: 2rem;
+}
+
+.button-icon {
+  font-size: 1.2rem;
+}
+
+.submit-button {
+  margin-top: 0.5rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent) 100%);
+}
+
+.submit-button::before {
+  background: linear-gradient(135deg, #0d9868 0%, var(--accent) 100%);
+}
+
+.transaction-status {
+  margin-top: 1rem;
+  padding: 0.85rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.transaction-status.success {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.transaction-status.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.transaction-status.pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--pending);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.view-transaction {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.view-transaction:hover {
+  text-decoration: underline;
+}
+
+/* Price chart styles */
+.price-card {
+  overflow: hidden;
+}
+
+.price-card h2 {
+  margin-bottom: 1.2rem;
+}
+
+.chart-container {
+  position: relative;
+  margin-top: 1rem;
+}
+
+.price-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.current-price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.price-change {
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.3em 0.6em;
+  border-radius: 6px;
+}
+
+.price-up {
+  color: var(--price-up);
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.3em 0.6em;
+  border-radius: 6px;
+}
+
+.price-down {
+  color: var(--price-down);
+  background: rgba(244, 63, 94, 0.1);
+  padding: 0.3em 0.6em;
+  border-radius: 6px;
+}
+
+.loading-indicator,
+.error-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.price-tooltip {
+  background: var(--background-card);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-sm);
+  padding: 0.65rem 0.85rem;
+  box-shadow: var(--box-shadow);
+  z-index: 10;
+  min-width: 150px;
+  max-width: 200px;
+  word-wrap: break-word;
+  font-size: 0.9rem;
+  transform: translateY(-5px);
+}
+
+.price-tooltip .time {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  margin-bottom: 0.3rem;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+.price-tooltip .price-value {
+  color: var(--primary);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Price card in connect container */
+.connect-container .price-card {
+  width: 100%;
+  max-width: 100%;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: var(--background-card);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.connect-container .price-card:hover {
+  box-shadow: var(--card-glow);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+/* Make the chart container in connect container match dashboard style */
+.connect-container .chart-container {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* Make the initial price card behave like a card */
+.connect-container .price-card h2 {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+/* Ensure price display is consistent */
+.connect-container .price-header {
+  margin-bottom: 1.5rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .connect-container {
+    padding: 1.5rem 1.2rem 2rem 1.2rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  .connect-container .price-card {
+    padding: 1.2rem;
   }
+}
+
+/* Animation effects */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+  }
+}
+
+.connect-button {
+  animation: pulse 2s infinite;
+}
+
+/* Remove spinner buttons from number inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: textfield; /* Standard property */
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield; /* Standard property */
 }
