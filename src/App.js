@@ -139,6 +139,16 @@ function App() {
   };
 
   useEffect(() => {
+    const checkWalletConnected = async () => {
+      const provider = window.solana;
+      if (provider && provider.isPhantom) {
+        const response = await provider.connect({
+          onlyIfTrusted: true,
+        });
+        setWalletAddress(response.publicKey.toString());
+      }
+    };
+    checkWalletConnected();
     getBalance();
   }, [walletAddress]);
 
